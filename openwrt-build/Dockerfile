@@ -1,6 +1,6 @@
 FROM debian:9.4
 
-# system base packages + build dependencies + user setup
+# system base packages + build dependencies + user setup ~350MB
 RUN set -xe \
     && apt-get update \
     && apt-get install -y --no-install-recommends \ 
@@ -15,12 +15,12 @@ RUN set -xe \
 # run as build user
 USER build
 
-# clone openwrt repo
+# clone openwrt repo ~200MB
 RUN set -xe \
     && cd /home/build \
     && git clone https://git.openwrt.org/openwrt/openwrt.git openwrt
 
-# fetch branch/tag and update feeds
+# fetch branch/tag and update feeds ~100MB
 RUN set -xe \
     && cd /home/build/openwrt \
     && git checkout v18.06.0-rc1 \
