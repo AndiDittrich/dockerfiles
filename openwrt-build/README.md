@@ -11,7 +11,7 @@ Current Snapshot
 Usage
 -------------------
 
-### Step 0 - Build the docker image (optinally) ###
+### Step 0 - Build the docker image (optionally) ###
 
 This step is optionally (build image from source). It installs the **build environment**, fetches the **openwrt git repository** and adds the related **feeds**
 
@@ -52,6 +52,10 @@ make download
 # build (n+1 core)
 make -j5
 ```
+
+### Step 3 - Copy the firmware files ###
+
+
 
 References/Docs
 -------------------
