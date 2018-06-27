@@ -11,13 +11,16 @@ Current Snapshot
 Usage
 -------------------
 
-### Step 0 - Build the docker image (optionally) ###
+### Step 0 - Build the docker image ###
 
 This step is optionally (build image from source). It installs the **build environment**, fetches the **openwrt git repository** and adds the related **feeds**
 
 ```bash
-# run docker-build in the current directory
-docker build -t openwrt-build-1806rc .
+# run docker-build via GitHub Docker file
+docker build https://github.com/AndiDittrich/dockerfiles.git#master:openwrt-build
+
+# OR run docker-build in the current directory (cloned repo)
+# docker build -t openwrt-build-1806rc .
 ```
 
 ### Step 1 - Start a new docker container and attach it ###
