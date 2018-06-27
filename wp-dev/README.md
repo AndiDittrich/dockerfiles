@@ -1,7 +1,7 @@
-WordPress plugin test runtime
+WordPress Plugin-Test Runtime
 =================================
 
-**DO NOT USE THIS IMAGE WITHIN PRODUCTION**
+**DO NOT USE THIS IMAGE IN PRODUCTION**
 
 As a WordPress plugin developer you often need a "clean" testing environment to test your plugin against different php versions, different WordPress releases or cross-plugin-compatibility.
 
