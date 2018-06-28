@@ -5,7 +5,7 @@
 FROM scratch as release
 
 # expand rootfs image
-ADD rootfs.tar /
+ADD build/rootfs.tar /
 
 # shell as default entry point
 ENTRYPOINT [ "/bin/sh" ]
