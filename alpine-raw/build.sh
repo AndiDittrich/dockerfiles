@@ -18,33 +18,34 @@ ALPINE_URL="http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_RELEASE_VERSION}/rele
 NOW=`date`
 
 # create temp dir
-mkdir -p build/fs
+TMP_DIR=`mktemp -d`
+mkdir $TMP_DIR/fs
 
 # fetch latest alpine image
-wget $ALPINE_URL -O build/${ALPINE_FILENAME}
+wget $ALPINE_URL -O $TMP_DIR/${ALPINE_FILENAME}
 
 # checksum verification
-sha256sum -c checksums.sha256
+#sha256sum -c checksums.sha256
 
 # uncompress alpine rootfs
 fakeroot sh -c "
-    tar xfz build/${ALPINE_FILENAME} -C build/fs
+    tar xfz $TMP_DIR/${ALPINE_FILENAME} -C $TMP_DIR/fs
 "
 
 # copy additional files
-cp -R fs/* build/fs
+cp -R fs/* $TMP_DIR/fs
 
 # get os release vars
-echo "Release $ALPINE_PATCH_VERSION | Build $NOW" >> build/fs/etc/motd
+echo "Release $ALPINE_PATCH_VERSION | Build $NOW" >> $TMP_DIR/fs/etc/motd
 
 # create new rootfs
 fakeroot sh -c "
-    cd build/fs
-    tar cf ../rootfs.tar * --owner=root --group=root
+    cd $TMP_DIR/fs
+    tar cf $TMP_DIR/rootfs.tar * --owner=root --group=root
 "
 
 # trigger docker build
-docker build -t alpine-raw:${ALPINE_RELEASE_VERSION} .
+docker build -t alpine-raw:${ALPINE_RELEASE_VERSION} --build-arg ROOTFS=$TMP_DIR/rootfs.tar .
 
 # delete temp dir
-rm -rf build
+rm -rf $TMP_DIR
