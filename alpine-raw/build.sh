@@ -4,7 +4,10 @@
 # in the future this can be replaced by a multistage build but during some bugs https://github.com/moby/moby/issues/34645
 # with user-namespace-remapping this has to be done outside the docker environment
 
-# fail on errors
+# command trace string
+PS4='\e[0;36m[command] $ \e[0m'
+
+# fail on errors, enable command tracing
 set -xe
 
 # vars
@@ -12,6 +15,7 @@ ALPINE_RELEASE_VERSION="3.8"
 ALPINE_PATCH_VERSION="3.8.0"
 ALPINE_FILENAME="alpine-minirootfs-${ALPINE_PATCH_VERSION}-x86_64.tar.gz"
 ALPINE_URL="http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_RELEASE_VERSION}/releases/x86_64/${ALPINE_FILENAME}"
+NOW=`date`
 
 # create temp dir
 mkdir -p build/fs
@@ -23,11 +27,18 @@ wget $ALPINE_URL -O build/${ALPINE_FILENAME}
 sha256sum -c checksums.sha256
 
 # uncompress alpine rootfs
-# copy additional files
-# create new rootfs
 fakeroot sh -c "
     tar xfz build/${ALPINE_FILENAME} -C build/fs
-    cp -R fs/* build/fs
+"
+
+# copy additional files
+cp -R fs/* build/fs
+
+# get os release vars
+echo "Release $ALPINE_PATCH_VERSION | Build $NOW" >> build/fs/etc/motd
+
+# create new rootfs
+fakeroot sh -c "
     cd build/fs
     tar cf ../rootfs.tar * --owner=root --group=root
 "
