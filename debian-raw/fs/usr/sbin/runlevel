@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# "emulate" runlevel 3 output. multiuser + network
+# no previous runlevel
+echo "N 3"
