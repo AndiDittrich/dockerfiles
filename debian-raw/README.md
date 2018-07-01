@@ -7,6 +7,8 @@ minimal debian **rootfs** build with debootstrap
 
 * Minimal Debian Image `~55MB`
 * Preinstalled bash
+* `rc.d` dummmy scripts
+* `apt-clean-install` script
 
 ## Motivation ##
 
@@ -15,6 +17,8 @@ minimal debian **rootfs** build with debootstrap
 3. Transparency
 
 ## Usage ##
+
+**Requires** to run docker without user-namespace-remapping during build - see [moby #34645](https://github.com/moby/moby/issues/34645) related to multistage builds
 
 ### 1. Create rootfs ##
 
