@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+# clean package installation
+apt-get install -y --no-install-recommends "$@"
+
+# clear package cache
+apt-get clean
+
+# remove package lists
+rm -rf /var/lib/apt/lists/*
