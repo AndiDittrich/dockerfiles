@@ -18,6 +18,7 @@ debootstrap \
     --variant=minbase \
     --merged-usr \
     --verbose \
+    --include=apt-utils \
     stretch \
     $TMP_DIR \
     http://httpredir.debian.org/debian/

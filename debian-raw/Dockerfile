@@ -14,6 +14,10 @@ RUN cat /etc/debian_version
 # add additional files/override existing
 COPY fs/ /
 
+# required packages are set to HOLD
+RUN set -xe \
+    && apt-mark hold apt apt-utils gnupg adduser passwd
+
 # remove unnecessary packages
 # force command via 'Yes, do as I say!'
 RUN set -xe \

@@ -31,5 +31,6 @@ fi
 
 # shortcuts
 export LS_OPTIONS='--color=auto'
+export SHELL='/bin/bash'
 eval "`dircolors`"
 alias la='ls $LS_OPTIONS -all -h'
