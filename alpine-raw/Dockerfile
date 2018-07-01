@@ -1,7 +1,7 @@
 # STAGE 1 - MERGE LAYERS
 # ---------------------------------------------------------------------------
 
-# rootfs as arg
+# rootfs location as arg
 ARG ROOTFS=rootfs.tar
 
 # clean environment

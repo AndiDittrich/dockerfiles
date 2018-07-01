@@ -2,4 +2,4 @@
 .hidden/*
 .credentials/
 build/
-php-runtime/
+rootfs.tar
