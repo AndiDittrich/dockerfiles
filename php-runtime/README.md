@@ -8,7 +8,7 @@ PHP Runtime based on Debian Packages
 ## Configuration ##
 
 * FPM: `/etc/php/php-fpm.ini`
-* PHP: `/etc/php/php.ini`
+* PHP: `/etc/php/php.production.ini`
 
 ## Logfiles ##
 
