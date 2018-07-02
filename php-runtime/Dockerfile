@@ -1,7 +1,12 @@
-FROM andidittrich/debian-raw:9.4
+# Stage 1 - BUILD
+# -----------------------------------------------------------
+FROM andidittrich/debian-raw:9.4 as build
 
 # don't show user interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
+
+# add additional files/override existing
+COPY fs/ /
 
 # install packages
 RUN set -xe \
@@ -10,7 +15,9 @@ RUN set -xe \
         util-linux \
         php7.0-fpm php7.0-curl php7.0-gd php7.0-intl php7.0-json \
         php7.0-mbstring php7.0-mysql php7.0-opcache php7.0-xml php7.0-zip \
-    && chown www-data:www-data /srv
+    && rm -rf /etc/php/7.0 \
+    && chmod 0770 /srv \
+    && chown -R www-data:www-data /srv
 
 # php-fpm port
 EXPOSE 9000/tcp
@@ -18,8 +25,8 @@ EXPOSE 9000/tcp
 # default working dir
 WORKDIR /srv
 
-# start php-fpm
-ENTRYPOINT [ "/usr/sbin/php-fpm7.0", "--nodaemonize" , "--fpm-config", "/etc/php/php-fpm.ini"]
+# user downgrade
+USER www-data
 
-# config options
-CMD 
+# start php-fpm
+ENTRYPOINT [ "/usr/sbin/php-fpm7.0", "--nodaemonize" , "--fpm-config", "/etc/php/php-fpm.ini", "--php-ini", "/etc/php/php.production.ini"]
