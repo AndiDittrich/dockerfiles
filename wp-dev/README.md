@@ -5,7 +5,7 @@ WordPress Plugin-Test Runtime
 
 As a WordPress plugin developer you often need a "clean" testing environment to test your plugin against different php versions, different WordPress releases or cross-plugin-compatibility.
 
-This testing environment is build upon **alpine-php** running the [php build-in webserver](http://php.net/manual/en/features.commandline.webserver.php).
+This testing environment is build upon **php-runtime-dev** running the [php build-in webserver](http://php.net/manual/en/features.commandline.webserver.php).
 
 It **requires** an external MySQL Database as storage backend. The `wp-config.php` has been changed to accept a simple [DSN](https://de.wikipedia.org/wiki/Data_Source_Name) to configure the database credentials via a single environment variable!
 
