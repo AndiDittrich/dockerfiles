@@ -1,7 +1,7 @@
 DEBIAN Base Image Builder
 ==============================
 
-minimal debian **rootfs** build with debootstrap
+minimal debian **rootfs** build with [multistrap](https://manpages.debian.org/stretch/multistrap/multistrap.1.en.html) within an isolated docker environment (requires prebuild debian image)
 
 ## Features ##
 
@@ -20,11 +20,9 @@ minimal debian **rootfs** build with debootstrap
 
 **Requires** to run docker without user-namespace-remapping during build - see [moby #34645](https://github.com/moby/moby/issues/34645) related to multistage builds
 
-### 1. Create rootfs ##
+### Create rootfs + optimized Docker Image##
 
-Run the `build.sh` script as root to create the initial root file system via **debootstrap**
+Run the `build.sh` script to trigger the rootfs container build.  This step removes unnecessary packages + files from the image and merges all layers finally.
 
-### 2. Create optimized Docker Image ##
-
-Run `docker build -t debian:stretch .` to build the docker image. This step removes unnecessary packages + files from the image and merges all layers finally.
+it builds the image **debian-raw-build** and a container for testing named **debian-raw-env**
 

@@ -1,39 +1,3 @@
-# Stage 0 - ROOTFS
-# -----------------------------------------------------------
-
-# debian base system is required to build the rootfs via multistrap
-FROM andidittrich/debian-raw:9.4 as rootfs
-
-# don't show user interactive prompts
-ENV DEBIAN_FRONTEND=noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN=true
-ENV LC_ALL=C LANGUAGE=C LANG=C
-ENV USER=debian-boostrap
-
-# Add build dependencies
-RUN set -xe \
-    && apt-get update \
-    && apt-get install -y \
-        util-linux build-essential debian-archive-keyring
-
-# add utils
-RUN set -xe \        
-    && apt-get install -y \
-       multistrap \
-    && mkdir /tmp/rootfs 
-
-# copy mutlistrap config
-COPY multistrap/ /etc/multistrap
-
-# Run multistrap build
-RUN set -xe \
-    && cat /etc/multistrap/multistrap.ini \
-    && multistrap \
-        -a amd64 \
-        -d /tmp/rootfs \
-        -f /etc/multistrap/multistrap.ini \
-    && du -sh /tmp/rootfs
-
 # Stage 1 - POSTBUILD env (debian)
 # -----------------------------------------------------------
 FROM scratch as postbuild
@@ -42,7 +6,7 @@ FROM scratch as postbuild
 ENV DEBIAN_FRONTEND=noninteractive
 
 # expand rootfs created via debootstrap
-COPY --from=rootfs /tmp/rootfs /
+ADD rootfs.tar /
 
 # show release version
 RUN cat /etc/debian_version
@@ -52,7 +16,7 @@ COPY fs/ /
 
 # required packages are set to HOLD
 RUN set -xe \
-    && apt-mark hold apt adduser passwd
+    && apt-mark hold apt apt-utils gnupg adduser passwd
 
 # remove unnecessary packages
 # force command via 'Yes, do as I say!'
@@ -88,10 +52,6 @@ RUN set -xe \
 # create dummy directory structures (may required by additional packages!)
 RUN set -xe \
     && mkdir -p /usr/share/man/man{1,2,3,4,5,6,7,8}
-
-# show final size
-RUN set -xe \
-    && du -shx /
 
 # Stage 2 - MERGE LAYERS
 # -----------------------------------------------------------
