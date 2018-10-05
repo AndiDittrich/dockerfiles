@@ -8,12 +8,13 @@ Index
 
 **Base Images**
 
-* [debian-raw](debian-raw/) | Minimal Debian image including build system `~55MB`
+* [debian-raw](debian-raw/) | Minimal Debian image including multistrap based build system `~55MB`
 * [alpine-raw](alpine-raw/) | Minimal Alpine Linux image directly based on mini-root-filesystem
 
 **Runtime**
 
-* [php-runtume](php-runtime/) | PHP 7.0 FPM runtime via official debian packages
+* [php-runtime](php-runtime/) | PHP 7.0 FPM runtime
+* [php-runtime-dev](php-runtime-dev/) | PHP 7.0 development via [php build-in webserver](http://php.net/manual/en/features.commandline.webserver.php)
 
 **Web Development**
 
@@ -22,6 +23,10 @@ Index
 **Embedded**
 
 * [openwrt-build](openwrt-build/) | OpenWRT encapsulated build environment
+
+**Deprecated**
+
+* [debian-raw-external-debootstrap](.deprecated/debian-raw-external-debootstrap/) | Minimal Debian image via debootstrap and external rootfs build
 
 License
 ------------------------------
