@@ -1,6 +1,6 @@
 # Stage 1 - BUILD
 # -----------------------------------------------------------
-FROM andidittrich/debian-raw:9.4 as build
+FROM andidittrich/debian-raw:9.5 as build
 
 # don't show user interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,6 +16,8 @@ RUN set -xe \
         php7.0-fpm php7.0-curl php7.0-gd php7.0-intl php7.0-json \
         php7.0-mbstring php7.0-mysql php7.0-opcache php7.0-xml php7.0-zip \
     && rm -rf /etc/php/7.0 \
+    && mkdir -p /etc/php/7.0/cli \
+    && ln -s /etc/php/php.production.ini /etc/php/7.0/cli/php.ini \
     && chmod 0770 /srv \
     && chown -R www-data:www-data /srv
 
