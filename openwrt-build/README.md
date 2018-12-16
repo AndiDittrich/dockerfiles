@@ -8,7 +8,7 @@ some specific build configurations are available in `/home/build/conf`
 Current Snapshot
 -------------------
 
-* Tag: `v18.06.0-rc1`
+* Tag: `v18.06.1`
 
 Usage
 -------------------
@@ -95,6 +95,10 @@ Device References
 
 * [Linksys WRTxxxAC Series](https://openwrt.org/toh/linksys/wrt_ac_series)
 
+Configuration Templats
+-------------------
+
+A few configuration templates are available in [conf/](conf/)
 
 Save Custom Configurations
 ----------------------------
