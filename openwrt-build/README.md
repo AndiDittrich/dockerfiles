@@ -1,7 +1,7 @@
 OpenWRT encapsulated build environment
 ========================================
 
-build openwrt firmware images within docker container. based on debian 9.4
+build openwrt firmware images within docker container. based on debian 9.6
 
 some specific build configurations are available in `/home/build/conf`
 
