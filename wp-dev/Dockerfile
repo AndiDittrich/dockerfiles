@@ -1,9 +1,10 @@
 FROM andidittrich/php-runtime-dev:7.0 AS BASE
 
 # wordpress release
-ARG WP_VERSION=4.9.8
-ARG WP_CHECKSUM=0945bab959cba127531dceb2c4fed81770812b4f
+ARG WP_VERSION=5.1.1
+ARG WP_CHECKSUM=f1bff89cc360bf5ef7086594e8a9b68b4cbf2192
 ARG WP_ARCHIVE=wordpress-${WP_VERSION}.tar.gz
+ARG WP_CLI_URL=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 # install packages as root
 USER root
@@ -12,7 +13,9 @@ USER root
 RUN set -xe \
     && apt-get update \
     && apt-clean-install \ 
-        wget
+        wget less \ 
+    && wget ${WP_CLI_URL} -O /usr/bin/wp-cli \
+    && chmod +x /usr/bin/wp-cli
 
 # user downgrade
 USER www-data
@@ -30,3 +33,5 @@ RUN set -xe \
 
 # override wp-config
 COPY --chown=www-data:www-data fs/ /
+
+ENTRYPOINT [ "/bin/bash" ]
