@@ -1,0 +1,5 @@
+# Do not overwrite modified configurations files
+Dpkg::Options {
+   "--force-confdef";
+   "--force-confold";
+}
