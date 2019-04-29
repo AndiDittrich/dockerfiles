@@ -8,6 +8,7 @@ $_dsn = getenv('WP_DSN', true);
 
 // dsn provided ?
 if ($_dsn === false){
+    ewfwefwf();
     die('FATAL ERROR: DSN not provided via "WP_DSN" env variable');
 }
 
