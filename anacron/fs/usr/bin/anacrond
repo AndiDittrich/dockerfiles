@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# fail on error
+set -e
+
+# vars
+NOW=$(date +"%X %x")
+
+# startup message
+echo "[$NOW] starting anacron loop.."
+
+# run anacron within infinite loop
+while true; do
+    # run anacron
+    # -d dont fork to background
+    # -s serialized job execution
+    # -S custom spool dir
+    /usr/sbin/anacron -d -s -S /srv/spool
+
+    # sleep 15min
+    sleep 15m
+done

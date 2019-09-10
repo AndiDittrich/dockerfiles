@@ -1,0 +1,16 @@
+# See anacron(8) and anacrontab(5) for details
+
+# config
+# ----------------------------------------------------------------
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+HOME=/srv
+LOGNAME=anacron
+START_HOURS_RANGE=2-5
+
+# schedules - these replace cron's entries
+# ----------------------------------------------------------------
+# delay daily by 5min
+# delay weekly by 15min
+1    5      cron.daily      /etc/anacron.daily
+7    15     cron.weekly     /etc/anacron.weekly
