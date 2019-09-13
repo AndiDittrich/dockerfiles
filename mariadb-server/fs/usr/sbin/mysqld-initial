@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+# start mariadb server
+mysqld --defaults-file=/etc/mariadb.conf &
+
+# wait until mysqld is up
+mysqladmin --wait=20 ping
+
+echo "MariaDB server started..setting up privileges.."
+
+# add account
+mysql -e "CREATE USER 'root'@'%' IDENTIFIED BY 'root';GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;" \
+
+echo "account added..shutting down.."
+
+# stop server
+mysqladmin shutdown
