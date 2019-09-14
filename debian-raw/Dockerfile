@@ -83,7 +83,8 @@ RUN set -xe \
         /var/cache/debconf/* \
         /usr/share/man/* \
         /usr/share/info/* \
-        /usr/share/locale/*
+        /usr/share/locale/* \
+        /usr/share/docs/*
 
 # create dummy directory structures (may required by additional packages!)
 RUN set -xe \
@@ -92,6 +93,11 @@ RUN set -xe \
 # show final size
 RUN set -xe \
     && du -shx /
+
+# default user
+RUN set -xe \
+    && useradd --system runtime \
+    && usermod --home /srv runtime
 
 # Stage 2 - MERGE LAYERS
 # -----------------------------------------------------------
