@@ -19,6 +19,9 @@ RUN set -xe \
 # std mysql port
 EXPOSE 3306/tcp
 
+# std storage path
+VOLUME [ "/usr/lib/mysql" ]
+
 # user downgrade
 USER runtime
 
