@@ -1,6 +1,6 @@
 # Stage 1 - BUILD
 # -----------------------------------------------------------
-FROM debian-raw:9.8 as build
+FROM debian-raw:9.9 as build
 
 # don't show user interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
