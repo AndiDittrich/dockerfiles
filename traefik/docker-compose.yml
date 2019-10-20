@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+
+  traefik:
+    image: docker-registry.aenon.rocks:5000/traefik
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+    networks:
+      traefik-ingress:
+      ext-ingress:
+    volumes:
+      - /etc/traefik:/etc/traefik
+
+networks:
+  traefik-ingress:
+    external: true
+  ext-ingress:
+    external: true

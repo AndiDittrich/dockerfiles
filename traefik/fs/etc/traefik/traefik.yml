@@ -1,0 +1,25 @@
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+log:
+  level: "INFO"
+  filePath: "/dev/stdout"
+
+providers:
+  file:
+    filename: /etc/traefik/routing.yml
+
+entryPoints:
+  web-http:
+    address: ":8080"
+
+  web-https:
+    address: ":8081"
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: pki@example.org
+      storage: /etc/traefik/acme.json
+      tlsChallenge: {}
