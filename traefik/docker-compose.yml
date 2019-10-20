@@ -1,9 +1,10 @@
 version: "3.7"
 
+
 services:
 
   traefik:
-    image: docker-registry.aenon.rocks:5000/traefik
+    image: traefik
     deploy:
       mode: global
       restart_policy:

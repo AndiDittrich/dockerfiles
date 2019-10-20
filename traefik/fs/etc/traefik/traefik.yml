@@ -8,7 +8,8 @@ log:
 
 providers:
   file:
-    filename: /etc/traefik/routing.yml
+    watch: true
+    directory: /etc/traefik/conf.d
 
 entryPoints:
   web-http:
