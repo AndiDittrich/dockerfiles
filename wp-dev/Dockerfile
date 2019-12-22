@@ -1,8 +1,8 @@
 FROM php-web-runtime AS BASE
 
 # wordpress release
-ARG WP_VERSION=5.2-RC1
-ARG WP_CHECKSUM=eff51436e750e607de7853fb6307b24dfe8782da
+ARG WP_VERSION=5.3.2
+ARG WP_CHECKSUM=fded476f112dbab14e3b5acddd2bcfa550e7b01b
 ARG WP_ARCHIVE=wordpress-${WP_VERSION}.tar.gz
 ARG WP_CLI_URL=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
@@ -31,3 +31,6 @@ RUN set -xe \
 
 # override wp-config
 COPY --chown=www-data:www-data fs/ /
+
+# data volumes
+VOLUME [ "/srv/app/public/wp-content" ]
