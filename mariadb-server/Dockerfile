@@ -20,7 +20,7 @@ RUN set -xe \
 EXPOSE 3306/tcp
 
 # std storage path
-VOLUME [ "/usr/lib/mysql" ]
+VOLUME [ "/var/lib/mysql" ]
 
 # user downgrade
 USER runtime
