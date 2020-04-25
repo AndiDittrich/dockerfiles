@@ -1,0 +1,51 @@
+modules:
+    # simple url prober WITH ssl verification
+    https_alive:
+        prober: http
+        timeout: 5s
+        http:
+            valid_http_versions: ["HTTP/1.1", "HTTP/2"]
+            valid_status_codes: []
+            method: GET
+            no_follow_redirects: true
+
+            # ssl required
+            fail_if_ssl: false
+            fail_if_not_ssl: true
+
+            # accept only valid certs
+            tls_config:
+                insecure_skip_verify: false
+
+            # ipv4 only
+            preferred_ip_protocol: "ip4"
+            ip_protocol_fallback: false
+
+    # simple url prober WITHOUT ssl verification
+    https_alive_any:
+        prober: http
+        timeout: 5s
+        http:
+            valid_http_versions: ["HTTP/1.1", "HTTP/2"]
+            valid_status_codes: []
+            method: GET
+            no_follow_redirects: true
+
+            # ssl required
+            fail_if_ssl: false
+            fail_if_not_ssl: true
+
+            # accept all certs
+            tls_config:
+                insecure_skip_verify: true
+
+            # ipv4 only
+            preferred_ip_protocol: "ip4"
+            ip_protocol_fallback: false
+
+    # ping host
+    ping:
+        prober: icmp
+        timeout: 5s
+        icmp:
+            preferred_ip_protocol: "ip4"
