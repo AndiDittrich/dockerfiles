@@ -15,7 +15,7 @@ COPY fs/ /tmp/rootfs
 RUN set -xe \
     && apt-get update \
     && apt-clean-install wget tzdata \
-    && mkdir -p ${ROOTFS}/{bin,dev,etc,lib,mnt,opt,root,sbin,srv,tmp,usr,var} \
+    && mkdir -p ${ROOTFS}/{bin,dev,etc,lib,mnt,opt,root,sbin,srv,tmp,usr,var,conf} \
     && ls -all ${ROOTFS} \
     && mkdir -p ${ROOTFS}/usr/{bin,sbin,lib} \
     && cp /usr/share/zoneinfo/UCT ${ROOTFS}/etc/localtime \
