@@ -33,6 +33,24 @@ foreach ($_serverConfig as $servername => $serverconf){
     $cfg['Servers'][$i]['port'] = $serverconf['port'];
     $cfg['Servers'][$i]['compress'] = false;
     $cfg['Servers'][$i]['AllowNoPassword'] = false;
+
+    // use TLS ?
+    if (isset($serverconf['cert'])){
+        // enable ssl/tls for this connection
+        $cfg['Servers'][$i]['ssl'] = true;
+
+        // enforce cert verification
+        $cfg['Servers'][$i]['ssl_verify'] = true;
+
+        // client certificate
+        $cfg['Servers'][$i]['ssl_cert'] = '/etc/certs.d/' . $serverconf['cert'] . '/client.crt';
+        
+        // client secret key
+        $cfg['Servers'][$i]['ssl_key'] = '/etc/certs.d/' . $serverconf['cert'] . '/client.key';
+
+        // certification authority
+        $cfg['Servers'][$i]['ssl_ca'] = '/etc/certs.d/' . $serverconf['cert'] . '/ca.crt';
+    }
 }
 
 /**
