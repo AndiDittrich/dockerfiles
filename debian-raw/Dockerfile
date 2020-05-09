@@ -44,9 +44,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # expand rootfs created via debootstrap
 COPY --from=rootfs /tmp/rootfs /
 
-# show release version
-RUN cat /etc/debian_version
-
 # add additional files/override existing
 COPY fs/ /
 
@@ -59,19 +56,12 @@ RUN set -xe \
 RUN set -xe \
     && echo 'Yes, do as I say!' | apt-get purge \
         mount \
-        e2fslibs \
         e2fsprogs \
         sysvinit-utils \
-        ncurses-base \
         ncurses-bin \
-        libsystemd0 \
         libmount1 \
-        libfdisk1
-
-# cleanup apt cache
-RUN set -xe \
-    && apt-get autoremove \
-    && apt-get clean
+        libfdisk1 \
+        libext2fs2
 
 # remove unnecessary files
 RUN set -xe \
@@ -81,6 +71,7 @@ RUN set -xe \
         /var/log/* \
         /var/lib/apt/lists/* \
         /var/cache/debconf/* \
+        /var/cache/apt/* \
         /usr/share/man/* \
         /usr/share/info/* \
         /usr/share/locale/* \
@@ -90,14 +81,15 @@ RUN set -xe \
 RUN set -xe \
     && mkdir -p /usr/share/man/man{1,2,3,4,5,6,7,8}
 
-# show final size
-RUN set -xe \
-    && du -shx /
-
 # default user
 RUN set -xe \
     && useradd --system runtime \
     && usermod --home /srv runtime
+
+# show final size
+RUN set -xe \
+    && du -shxc / \
+    && cat /etc/debian_version
 
 # Stage 2 - MERGE LAYERS
 # -----------------------------------------------------------
