@@ -1,8 +1,8 @@
 FROM php-web-runtime AS BASE
 
 # wordpress release
-ARG WP_VERSION=5.3.2
-ARG WP_CHECKSUM=fded476f112dbab14e3b5acddd2bcfa550e7b01b
+ARG WP_VERSION=5.4.2
+#ARG WP_CHECKSUM=fded476f112dbab14e3b5acddd2bcfa550e7b01b
 ARG WP_ARCHIVE=wordpress-${WP_VERSION}.tar.gz
 ARG WP_CLI_URL=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
@@ -25,12 +25,12 @@ RUN set -xe \
     && cd /srv \
     && echo "${WP_CHECKSUM} /tmp/wp.tgz" > /srv/checksum \
     && wget -O /tmp/wp.tgz https://wordpress.org/${WP_ARCHIVE} \
-    && sha1sum /tmp/wp.tgz \
-    && sha1sum -c checksum \
     && tar xfz /tmp/wp.tgz -C /srv/app/public --strip-components=1
 
 # override wp-config
 COPY --chown=www-data:www-data fs/ /
+#    && sha1sum /tmp/wp.tgz \
+#    && sha1sum -c checksum \
 
 # data volumes
 VOLUME [ "/srv/app/public/wp-content" ]
