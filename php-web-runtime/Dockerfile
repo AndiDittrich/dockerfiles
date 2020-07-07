@@ -1,6 +1,6 @@
 # Stage 1 - BUILD
 # -----------------------------------------------------------
-FROM debian-raw:10.3 as build
+FROM debian-raw:10.4 as build
 
 # don't show user interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
