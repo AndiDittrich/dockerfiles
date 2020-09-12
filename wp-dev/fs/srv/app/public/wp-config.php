@@ -44,6 +44,17 @@ define('NONCE_SALT', 'g6I+,tE<|ib§-l,*D_|77wAl168Q*§T@qk2Jv^P3-(Ut#/7R}<**E]X+
 // enable debugging
 define('WP_DEBUG', true);
 
+// use multisite ?
+if (getenv('WP_MU', 'off') == 'on'){
+    define('WP_ALLOW_MULTISITE', true);
+    define('MULTISITE', true);
+    define('SUBDOMAIN_INSTALL', false);
+    define('DOMAIN_CURRENT_SITE', $_SERVER['HTTP_HOST']);
+    define('PATH_CURRENT_SITE', '/');
+    define('SITE_ID_CURRENT_SITE', 1);
+    define('BLOG_ID_CURRENT_SITE', 1);
+}
+
 // set site url to current active url
 define('WP_SITEURL','http://' . $_SERVER['HTTP_HOST']);
 define('WP_HOME', WP_SITEURL);

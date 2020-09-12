@@ -1,7 +1,7 @@
 FROM php-web-runtime AS BASE
 
 # wordpress release
-ARG WP_VERSION=5.4.2
+ARG WP_VERSION=5.5.1
 #ARG WP_CHECKSUM=fded476f112dbab14e3b5acddd2bcfa550e7b01b
 ARG WP_ARCHIVE=wordpress-${WP_VERSION}.tar.gz
 ARG WP_CLI_URL=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
