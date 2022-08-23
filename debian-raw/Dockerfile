@@ -60,7 +60,6 @@ RUN set -xe \
         sysvinit-utils \
         ncurses-bin \
         libmount1 \
-        libfdisk1 \
         libext2fs2
 
 # remove unnecessary files
