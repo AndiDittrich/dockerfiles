@@ -1,6 +1,6 @@
 # Stage 1 - BUILD
 # -----------------------------------------------------------
-FROM debian-raw:10.4 as build
+FROM localhost/debian-raw as build
 
 # don't show user interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -12,16 +12,16 @@ COPY fs/ /
 RUN set -xe \
     && apt-get update \
     && apt-clean-install \ 
-        lighttpd spawn-fcgi curl \
+        lighttpd lighttpd-mod-deflate spawn-fcgi curl \
         util-linux ca-certificates \
-        php7.3-cgi php7.3-curl php7.3-gd php7.3-intl php7.3-json \
-        php7.3-mbstring php7.3-mysql php7.3-opcache php7.3-xml php7.3-zip \
-    && rm -rf /etc/php/7.3 \
-    && mkdir -p /etc/php/7.3/cli/conf.d \
-    && mkdir -p /etc/php/7.3/cgi/conf.d \
-    && ln -s /etc/php/php.production.ini /etc/php/7.3/cgi/php.ini \
-    && ln -s /etc/php/php.production.ini /etc/php/7.3/cli/php.ini \
-    && ln -s /etc/php/php.cli.ini /etc/php/7.3/cli/conf.d/cli.ini \
+        php7.4-cgi php7.4-curl php7.4-gd php7.4-intl php7.4-json \
+        php7.4-mbstring php7.4-mysql php7.4-opcache php7.4-xml php7.4-zip \
+    && rm -rf /etc/php/7.4 \
+    && mkdir -p /etc/php/7.4/cli/conf.d \
+    && mkdir -p /etc/php/7.4/cgi/conf.d \
+    && ln -s /etc/php/php.production.ini /etc/php/7.4/cgi/php.ini \
+    && ln -s /etc/php/php.production.ini /etc/php/7.4/cli/php.ini \
+    && ln -s /etc/php/php.cli.ini /etc/php/7.4/cli/conf.d/cli.ini \
     && chmod 0770 /srv \
     && chown -R www-data:www-data /srv
 
