@@ -2,7 +2,7 @@
 # -----------------------------------------------------------
 
 # debian base system is required to build the rootfs via multistrap
-FROM andidittrich/debian-raw:9.4 as rootfs
+FROM debian:12 as rootfs
 
 # don't show user interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -20,7 +20,9 @@ RUN set -xe \
 RUN set -xe \        
     && apt-get install -y \
        multistrap \
-    && mkdir /tmp/rootfs 
+    && mkdir -p /tmp/rootfs/etc/apt/trusted.gpg.d
+
+COPY fs/etc/apt/trusted.gpg.d /tmp/rootfs/etc/apt/trusted.gpg.d
 
 # copy mutlistrap config
 COPY multistrap/ /etc/multistrap
@@ -50,17 +52,6 @@ COPY fs/ /
 # required packages are set to HOLD
 RUN set -xe \
     && apt-mark hold apt adduser passwd
-
-# remove unnecessary packages
-# force command via 'Yes, do as I say!'
-RUN set -xe \
-    && echo 'Yes, do as I say!' | apt-get purge \
-        mount \
-        e2fsprogs \
-        sysvinit-utils \
-        ncurses-bin \
-        libmount1 \
-        libext2fs2
 
 # remove unnecessary files
 RUN set -xe \
