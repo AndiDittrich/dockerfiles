@@ -1,0 +1,16 @@
+Host aenon.shangrila
+    HostName shangrila.srv.aenon.rocks
+    User logfetcher
+    Port 43168
+    IdentityFile /srv/config/keys
+    StrictHostKeyChecking no
+    UserKnownHostsFile /srv/config/known_hosts
+
+Host jufo.atlantis
+    HostName 10.10.0.21
+    User logfetcher
+    Port 22
+    IdentityFile /srv/config/keys
+    StrictHostKeyChecking no
+    UserKnownHostsFile /srv/config/known_hosts
+

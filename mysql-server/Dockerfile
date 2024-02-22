@@ -19,7 +19,19 @@ RUN set -xe \
     && wget -O /tmp/mysql.tgz https://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz \
     && tar xfz /tmp/mysql.tgz -C /srv/mysql --strip-components=1 \
     && rm /tmp/mysql.tgz \
-    && rm -rf /srv/mysql/{docs,man,mysql-test,sql-bench,support-files}
+    && cd /srv/mysql \
+    && rm -rf ./docs ./man ./mysql-test ./sql-bench ./support-files \
+    && rm \
+        ./lib/libmysqld-debug.a \
+        ./bin/mysql_secure_installation \
+        ./bin/mysqld-debug \
+        ./bin/mysqld_safe \
+        ./bin/mysqld_multi \
+        ./bin/mysqltest \
+        ./bin/mysqltest_embedded \
+        ./bin/mysql_embedded \
+        ./bin/mysql_client_test \
+        ./bin/mysql_client_test_embedded
 
 # user downgrade
 USER runtime

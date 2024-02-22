@@ -1,0 +1,3 @@
+# matomo access token
+MATOMO_TOKEN="15f671d15119236a50224b5094d8afa3"
+MATOMO_HOST="https://analytics.aenon.rocks"

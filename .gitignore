@@ -3,3 +3,5 @@
 .credentials/
 build/
 rootfs.tar
+.repository
+**/.packages

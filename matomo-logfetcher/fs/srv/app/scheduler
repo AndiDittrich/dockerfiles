@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+set -e
+
+# load matomo access tokens
+if [ ! -f /srv/config/matomo ]; then
+    echo "matomo host-config file not exists"
+    exit 1
+fi
+
+source /srv/config/matomo
+
+# fetch the current accesslog from remote server
+fetch_accesslog(){
+    echo "fetching accesslog [$1]"
+    # fetch log
+    sftp \
+        -F /srv/config/ssh_config \
+        $1 \
+        /tmp/access.log.gz
+
+    # uncompress
+    gunzip /tmp/access.log.gz
+}
+
+# cleanup
+cleanup(){
+    if [ -f /tmp/access.log ]; then
+        rm /tmp/access.log
+    fi
+}
+
+# import logs
+matomo_import(){
+    /srv/app/matomo/import_logs.py \
+        --token-auth=$MATOMO_TOKEN \
+        --url=$MATOMO_HOST \
+        --log-format-name=lighttpd \
+        --add-sites-new-hosts \
+        --recorders=4 \
+        --enable-http-errors \
+        /tmp/access.log
+}
+
+# process historical logs
+for i in {25..2}
+do
+    # get latest accesslog file from remote host
+    fetch_accesslog "aenon.shangrila:/var/log/lighttpd/access.log.$i.gz"
+
+    # import logs
+    matomo_import
+
+    # remove temp files
+    cleanup
+done
+
+
+

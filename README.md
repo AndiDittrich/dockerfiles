@@ -16,17 +16,6 @@ Index
 * [php-runtime](php-runtime/) | PHP 7.0 FPM runtime
 * [php-runtime-dev](php-runtime-dev/) | PHP 7.0 development via [php build-in webserver](http://php.net/manual/en/features.commandline.webserver.php)
 
-**Web Development**
-
-* [wp-dev](wp-dev/) | WordPress plugin test runtime
-
-**Embedded**
-
-* [openwrt-build](openwrt-build/) | OpenWRT encapsulated build environment
-
-**Deprecated**
-
-* [debian-raw-external-debootstrap](.deprecated/debian-raw-external-debootstrap/) | Minimal Debian image via debootstrap and external rootfs build
 
 License
 ------------------------------

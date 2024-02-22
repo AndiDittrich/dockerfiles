@@ -38,4 +38,4 @@ COPY --chown=runtime:runtime --from=build /tmp/build /
 
 # set entrypoint
 # debug "--log.level=debug"
-ENTRYPOINT [ "/bin/blackbox_exporter", "--config.file=/conf/blackbox.yml"]
+ENTRYPOINT [ "/bin/blackbox_exporter", "--config.file=/conf/blackbox.yml", "--log.level=debug"]
